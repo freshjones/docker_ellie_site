@@ -1,11 +1,11 @@
 #!/bin/bash
 
-/usr/bin/mysqld_safe &
+/usr/bin/mysqld_safe --skip-syslog &
 sleep 10s
 
 mysqladmin -u root password welcome
-mysql --skip-syslog -uroot -pwelcome -e "CREATE DATABASE elliesite;"
-mysql --skip-syslog -uroot -pwelcome -e "GRANT ALL PRIVILEGES ON elliesite.* TO 'admin'@'localhost' IDENTIFIED BY 'welcome'; FLUSH PRIVILEGES;"
+mysql -uroot -pwelcome -e "CREATE DATABASE elliesite;"
+mysql -uroot -pwelcome -e "GRANT ALL PRIVILEGES ON elliesite.* TO 'admin'@'localhost' IDENTIFIED BY 'welcome'; FLUSH PRIVILEGES;"
 
 #echo "cd into app"
 #cd /app/laravel
