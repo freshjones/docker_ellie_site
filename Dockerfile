@@ -59,7 +59,7 @@ COPY app/ /app/
 RUN chown -R www-data:www-data /app/storage
 
 #change permissions on the mysqld folder
-RUN chown -R mysql:mysql /var/lib/mysql/
+#RUN chown -R mysql:mysql /var/lib/mysql/
 
 #install database
 ADD mysql/install_db.sh /scripts/install_db.sh
