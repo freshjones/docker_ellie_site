@@ -54,6 +54,9 @@ VOLUME /app/storage
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+ENV siteName="My Local YMCA"
+ENV siteScheme=2
+
 #expose port 80
 EXPOSE 80
 
