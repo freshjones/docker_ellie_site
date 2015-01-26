@@ -1,6 +1,6 @@
 <?php
-$scheme = 4;
-$ymca_name = 'My YMCA';
+$scheme = getenv('SITESCHEME');
+$ymca_name = getenv('SITENAME');
 ?>
 <html>
 	<head>
