@@ -35,6 +35,8 @@ $ymca_name = 'My YMCA';
 				overflow:hidden;
 				background-image: url("ymca_logo.png");
 				background-position: 0 0;
+				text-indent: 100%;
+				white-space: nowrap;
 			}
 
 			.logo.scheme-2{
@@ -59,6 +61,7 @@ $ymca_name = 'My YMCA';
 
 			.title {
 				font-size: 24px;
+				margin-top:10px
 			}
 
 		</style>
