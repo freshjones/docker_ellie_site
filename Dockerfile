@@ -4,9 +4,6 @@ FROM debian:jessie
 # File Author / Maintainer
 MAINTAINER William Jones <billy@freshjones.com>
 
-ENV SITENAME="My Local YMCA" \
-    SITESCHEME=2
-
 # Update the repository sources list
 RUN apt-get update && \
     apt-get install -y \
