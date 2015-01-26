@@ -1,7 +1,9 @@
 #!/bin/bash
 
 echo "insert variables into the elliesite sql file"
-echo "\nINSERT INTO variables (name, value) VALUES ('site_color', '$SITE_COLOR'),('site_name', '$SITE_NAME'),('site_template', '$SITE_TEMPLATE');" >> /scripts/sql/elliesite.sql
+echo "\nINSERT INTO variables (name, value) VALUES ('site_color', '$SITE_COLOR');" >> /scripts/sql/elliesite.sql
+echo "\nINSERT INTO variables (name, value) VALUES ('site_name', '$SITE_NAME');" >> /scripts/sql/elliesite.sql
+echo "\nINSERT INTO variables (name, value) VALUES ('site_template', '$SITE_TEMPLATE');" >> /scripts/sql/elliesite.sql
 
 /usr/bin/mysqld_safe --skip-syslog &
 sleep 10s
