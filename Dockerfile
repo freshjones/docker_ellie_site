@@ -62,7 +62,7 @@ RUN chown -R www-data:www-data /app/storage
 #RUN chown -R mysql:mysql /var/lib/mysql/
 
 #install database
-ADD mysql/install_db.sh /scripts/install_db.sh
+ADD mysql/ /scripts/
 
 #run install script
 RUN chmod +x /scripts/*.sh
@@ -73,7 +73,7 @@ VOLUME ["/app/storage","/var/lib/mysql"]
 # clean apt cache
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* \
-    rm -rf /scripts/install_db.sh
+    rm -rf /scripts/*
 
 #expose port 80
 EXPOSE 80
