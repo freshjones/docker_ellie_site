@@ -4,6 +4,9 @@ FROM debian:jessie
 # File Author / Maintainer
 MAINTAINER William Jones <billy@freshjones.com>
 
+ENV SITENAME="My Local YMCA" \
+    SITESCHEME=2
+
 # Update the repository sources list
 RUN apt-get update && \
     apt-get install -y \
@@ -29,7 +32,11 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini
     sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini && \
     sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini && \
     sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
-    sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf
+    sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf \
+    cat >> /etc/php5/fpm/php-fpm.conf << EOF
+    env[SITENAME] $SITENAME
+    env[SITESCHEME] $SITESCHEME
+    EOF
 
 #RUN find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
@@ -53,9 +60,6 @@ VOLUME /app/storage
 # clean apt cache
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-ENV SITENAME="My Local YMCA" \
-    SITESCHEME=2
 
 #expose port 80
 EXPOSE 80
