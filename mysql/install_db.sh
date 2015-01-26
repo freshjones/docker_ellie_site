@@ -10,7 +10,7 @@ mysql -uroot -pwelcome -e "GRANT ALL PRIVILEGES ON elliesite.* TO 'admin'@'local
 echo "populate the default database"
 mysql -uroot -pwelcome elliesite < /scripts/sql/elliesite.sql
 
-mysql -uroot -pwelcome -e "INSERT INTO `variables` (`name`, `value`)VALUES ('site_color', '$SITE_SCHEME'),('site_name', '$SITE_NAME'),('site_template', '$SITE_TEMPLATE');"
+mysql -uroot -pwelcome -e "INSERT INTO `variables` (`name`, `value`)VALUES ('site_color', '$SITE_COLOR'),('site_name', '$SITE_NAME'),('site_template', '$SITE_TEMPLATE');"
 
 #echo "cd into app"
 #cd /app/laravel
