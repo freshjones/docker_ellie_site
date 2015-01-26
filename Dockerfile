@@ -68,7 +68,7 @@ ADD mysql/install_db.sh /scripts/install_db.sh
 RUN chmod +x /scripts/*.sh
 RUN /bin/bash /scripts/install_db.sh
 
-VOLUME ["/app/storage", "/var/lib/mysql"]
+VOLUME ["/app/storage"]
 
 # clean apt cache
 RUN apt-get clean && \
