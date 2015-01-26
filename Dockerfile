@@ -8,6 +8,10 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV MYSQL_USER admin
 ENV MYSQL_PASS welcome
 
+ENV SITE_NAME="My Local YMCA" \
+    SITE_SCHEME="3" \
+    SITE_COLOR="2"
+
 # Update the repository sources list
 RUN apt-get update && \
     apt-get install -y \
