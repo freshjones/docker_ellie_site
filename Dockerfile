@@ -4,6 +4,10 @@ FROM debian:jessie
 # File Author / Maintainer
 MAINTAINER William Jones <billy@freshjones.com>
 
+ENV DEBIAN_FRONTEND noninteractive
+ENV MYSQL_USER admin
+ENV MYSQL_PASS welcome
+
 # Update the repository sources list
 RUN apt-get update && \
     apt-get install -y \
@@ -13,6 +17,10 @@ RUN apt-get update && \
     git \
     nginx \
     supervisor
+
+#install mysql
+RUN apt-get install -y \
+    mysql-server
 
 #install php fpm
 RUN apt-get -y install -y \
@@ -50,11 +58,22 @@ ADD sites-enabled/ /etc/nginx/sites-enabled/
 COPY app/ /app/
 RUN chown -R www-data:www-data /app/storage
 
-VOLUME /app/storage
+#change permissions on the mysqld folder
+RUN chown -R mysql:mysql /var/lib/mysql/
+
+#install database
+ADD mysql/install_db.sh /scripts/install_db.sh
+
+#run install script
+RUN chmod +x /scripts/*.sh
+RUN /bin/bash /scripts/install_db.sh
+
+VOLUME ["/app/storage", "/var/lib/mysql"]
 
 # clean apt cache
 RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* \
+    rm -rf /scripts/install_db.sh
 
 #expose port 80
 EXPOSE 80
