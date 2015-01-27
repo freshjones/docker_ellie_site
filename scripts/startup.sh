@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SITE_NAME = $1
-SITE_TEMPLATE = $2
-SITE_COLOR = $3
+SITE_NAME=$1
+SITE_TEMPLATE=$2
+SITE_COLOR=$3
 
 #start mysql
 /usr/bin/mysqld_safe --skip-syslog &
@@ -23,4 +23,4 @@ php artisan db:seed
 mysqladmin -uroot -pwelcome shutdown
 
 # start all the services
-/usr/bin/supervisord -n
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
