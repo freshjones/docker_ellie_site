@@ -43,9 +43,9 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini
     sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
     sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf
 
-#RUN echo "\nenv[SITENAME] $SITENAME\nenv[SITESCHEME] $SITESCHEME" >> /etc/php5/fpm/php-fpm.conf
-
-#RUN find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
+#install composer
+RUN curl -sS https://getcomposer.org/installer | php && \
+mv composer.phar /usr/local/bin/composer
 
 #copy supervisor conf
 COPY supervisor/supervisor.conf /etc/supervisor/conf.d/supervisord.conf
@@ -57,27 +57,34 @@ RUN mkdir -p /var/log/supervisor
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 #add sites enabled dir
-ADD sites-enabled/ /etc/nginx/sites-enabled/
+ADD nginx/sites-enabled/ /etc/nginx/sites-enabled/
 
-COPY app/ /app/
+#clone in the app
+RUN git clone -b master --single-branch https://github.com/freshjones/ellie_webapp.git /app/laravel
+
+COPY app/storage/ /app/storage/
 RUN chown -R www-data:www-data /app/storage
 
 #change permissions on the mysqld folder
 #RUN chown -R mysql:mysql /var/lib/mysql/
 
-#install database
-ADD mysql/ /scripts/
+#install scripts
+ADD scripts/ /scripts/
 
 #run install script
 RUN chmod +x /scripts/*.sh
-RUN /bin/bash /scripts/install_db.sh
 
-VOLUME ["/app/storage","/var/lib/mysql"]
+#run laravel install
+RUN /bin/bash /scripts/laravel_install.sh
+
+#run install db script
+RUN /bin/bash /scripts/mysql_istall.sh
 
 # clean apt cache
 RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* \
-    rm -rf /scripts/*
+    rm -rf /var/lib/apt/lists/*
+
+VOLUME ["/app/storage","/var/lib/mysql"]
 
 #expose port 80
 EXPOSE 80
