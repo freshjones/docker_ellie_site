@@ -23,4 +23,4 @@ php artisan db:seed
 mysqladmin -uroot -pwelcome shutdown
 
 # start all the services
-/usr/local/bin/supervisord -n
+/usr/bin/supervisord -n
