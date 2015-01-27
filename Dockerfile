@@ -5,12 +5,12 @@ FROM debian:jessie
 MAINTAINER William Jones <billy@freshjones.com>
 
 ENV DEBIAN_FRONTEND noninteractive
-ENV MYSQL_USER admin
-ENV MYSQL_PASS welcome
+#ENV MYSQL_USER admin
+#ENV MYSQL_PASS welcome
 
-ENV SITE_NAME="My Local YMCA" \
-    SITE_TEMPLATE="3" \
-    SITE_COLOR="2"
+#ENV SITE_NAME="My Local YMCA" \
+#    SITE_TEMPLATE="3" \
+#    SITE_COLOR="2"
 
 # Update the repository sources list
 RUN apt-get update && \

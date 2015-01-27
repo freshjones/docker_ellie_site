@@ -1,5 +1,9 @@
 #!/bin/bash
 
+SITE_NAME = $1
+SITE_TEMPLATE = $2
+SITE_COLOR = $3
+
 #start mysql
 /usr/bin/mysqld_safe --skip-syslog &
 sleep 10s
