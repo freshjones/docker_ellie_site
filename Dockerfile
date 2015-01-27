@@ -89,4 +89,5 @@ VOLUME ["/app/storage","/var/lib/mysql"]
 #expose port 80
 EXPOSE 80
 
-CMD ["/bin/sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
