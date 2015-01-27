@@ -11,8 +11,3 @@ composer install --prefer-dist
 
 echo "copy the env variables"
 cp .env.example .env
-
-echo "add some vaiables to the .env file"
-echo -e "\nSITE_NAME=$SITE_NAME" >> .env
-echo -e "SITE_TEMPLATE=$SITE_TEMPLATE" >> .env
-echo -e "SITE_COLOR=$SITE_COLOR" >> .env

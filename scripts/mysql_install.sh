@@ -13,7 +13,4 @@ cd /app/laravel
 echo "run migration script"
 php artisan migrate
 
-echo "run seed script"
-php artisan db:seed
-
 mysqladmin -uroot -pwelcome shutdown
