@@ -13,4 +13,8 @@ cd /app/laravel
 echo "run migration script"
 php artisan migrate
 
+echo "generate app key"
+php artisan key:generate > /scripts/appkey.txt
+
+echo "shutdown mysql"
 mysqladmin -uroot -pwelcome shutdown
