@@ -78,7 +78,7 @@ RUN chmod +x /scripts/*.sh
 RUN /bin/bash /scripts/laravel_install.sh
 
 #run install db script
-RUN /bin/bash /scripts/mysql_istall.sh
+RUN /bin/bash /scripts/mysql_install.sh
 
 # clean apt cache
 RUN apt-get clean && \
