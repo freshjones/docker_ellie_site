@@ -60,7 +60,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD nginx/sites-enabled/ /etc/nginx/sites-enabled/
 
 #clone in the app
-RUN git clone -b master --single-branch https://github.com/freshjones/ellie_webapp.git /app/laravel
+RUN git clone https://github.com/freshjones/ellie_webapp.git /app/laravel
 
 COPY app/storage/ /app/storage/
 RUN chown -R www-data:www-data /app/storage
@@ -90,4 +90,3 @@ VOLUME ["/app/storage","/var/lib/mysql"]
 EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
