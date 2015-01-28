@@ -7,13 +7,6 @@ MAINTAINER William Jones <billy@freshjones.com>
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM=xterm
 
-#ENV MYSQL_USER admin
-#ENV MYSQL_PASS welcome
-
-#ENV SITE_NAME="My Local YMCA" \
-#    SITE_TEMPLATE="3" \
-#    SITE_COLOR="2"
-
 # Update the repository sources list
 RUN apt-get update && \
     apt-get install -y \
@@ -46,10 +39,6 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini
     sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.conf && \
     sed -i -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" /etc/php5/fpm/pool.d/www.conf
 
-#install composer
-RUN curl -sS https://getcomposer.org/installer | php && \
-mv composer.phar /usr/local/bin/composer
-
 #copy supervisor conf
 COPY supervisor/supervisor.conf /etc/supervisor/conf.d/supervisord.conf
 
@@ -63,9 +52,10 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD nginx/sites-enabled/ /etc/nginx/sites-enabled/
 
 #clone in the app
-RUN git clone https://github.com/freshjones/ellie_webapp.git /app/laravel
+#RUN git clone https://github.com/freshjones/ellie_webapp.git /app/laravel
 
-COPY app/storage/ /app/storage/
+#copy the default app
+COPY app/ /app/
 RUN chown -R www-data:www-data /app/storage
 
 #change permissions on the mysqld folder
@@ -76,9 +66,6 @@ ADD scripts/ /scripts/
 
 #run install script
 RUN chmod +x /scripts/*.sh
-
-#run laravel install
-RUN /bin/bash /scripts/laravel_install.sh
 
 #run install db script
 RUN /bin/bash /scripts/mysql_install.sh
