@@ -5,6 +5,8 @@ FROM debian:jessie
 MAINTAINER William Jones <billy@freshjones.com>
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV TERM=xterm
+
 #ENV MYSQL_USER admin
 #ENV MYSQL_PASS welcome
 
@@ -34,7 +36,8 @@ RUN apt-get -y install -y \
     php5-memcached \ 
     php5-imap \
     php5-mcrypt \
-    php5-xmlrpc
+    php5-xmlrpc \
+    php5-curl
 
 # php-fpm config
 RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php5/fpm/php.ini && \
