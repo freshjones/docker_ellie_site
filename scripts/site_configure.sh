@@ -8,4 +8,4 @@ echo "cd into app"
 cd /app/laravel
 
 echo "run laravel site initialize"
-php artisan site:initialize $SITENAME $SITECOLOR $SITETEMPLATE
+php artisan site:initialize "$SITENAME" "$SITECOLOR" "$SITETEMPLATE"
